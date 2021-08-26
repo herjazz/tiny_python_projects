@@ -24,11 +24,20 @@ def get_args():
 
 
 # --------------------------------------------------
+def validate_word(supplied_word: str) -> str:
+    """Check first character of supplied word is a letter"""
+
+    if not supplied_word[0].isalpha():
+        raise ValueError
+    return supplied_word
+
+
+# --------------------------------------------------
 def main():
     """ Running with it """
 
     args = get_args()
-    word = args.word
+    word = validate_word(args.word)
     side = 'starboard' if args.starboard else 'larboard'
     char = word[0]
     article = 'an' if char.lower() in 'aeiou' else 'a'

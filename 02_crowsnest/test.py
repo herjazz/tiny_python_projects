@@ -2,7 +2,7 @@
 """tests for crowsnest.py"""
 
 import os
-from subprocess import getstatusoutput, getoutput
+from subprocess import getstatusoutput, getoutput, CalledProcessError
 
 prg = './crowsnest.py'
 consonant_words = [
@@ -75,3 +75,13 @@ def test_starboard():
     flag = '--starboard'
     out = getoutput(f'{prg} octopus {flag}')
     assert out.strip() == 'Ahoy, Captain, an octopus off the starboard bow!'
+
+
+# --------------------------------------------------
+def test_first_char_numeric():
+    """e.g. 02test - throw exception"""
+
+    word = '02test'
+    out = getoutput(f'{prg} {word}')
+
+    assert out.endswith("ValueError")
