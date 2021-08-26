@@ -18,6 +18,8 @@ def get_args():
 
     parser.add_argument('word', metavar='word', help='A word')
 
+    parser.add_argument('--starboard', default=False, action='store_true')
+
     return parser.parse_args()
 
 
@@ -27,9 +29,12 @@ def main():
 
     args = get_args()
     word = args.word
-    char = word[0].lower()
-    article = 'an' if char in 'aeiou' else 'a'
-    print(f"Ahoy, Captain, {article} {word} off the larboard bow!")
+    side = 'starboard' if args.starboard else 'larboard'
+    char = word[0]
+    article = 'an' if char.lower() in 'aeiou' else 'a'
+    if char.isupper():
+        article = article.title()
+    print(f"Ahoy, Captain, {article} {word} off the {side} bow!")
 
 
 # --------------------------------------------------
