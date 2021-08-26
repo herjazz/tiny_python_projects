@@ -16,9 +16,7 @@ def get_args():
         description='Jump the Five',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('text',
-                        metavar='str',
-                        help='Input text')
+    parser.add_argument('text', metavar='str', help='Input text')
 
     return parser.parse_args()
 
@@ -49,6 +47,9 @@ def main():
         decoded_text += jump_dict.get(char, char)
 
     print(decoded_text)
+
+    # Other possible solution - use str.translate
+    # print(encoded_text.translate(str.maketrans(jump_dict)))
 
 
 # --------------------------------------------------
