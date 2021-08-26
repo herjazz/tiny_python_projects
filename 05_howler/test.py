@@ -7,7 +7,7 @@ import random
 import string
 from subprocess import getstatusoutput, getoutput
 
-prg = './howler.py'
+prg = './howler_lowmem.py'
 
 
 # --------------------------------------------------
