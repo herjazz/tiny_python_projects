@@ -19,13 +19,13 @@ def get_args():
     parser.add_argument('item',
                         metavar='str',
                         nargs='+',
+                        type=str,
                         help='Item(s) to bring')
 
     parser.add_argument('-s',
                         '--sorted',
                         help='Sort the items',
                         action='store_true')
-
 
     parser.add_argument('--no_oxford',
                         help='Don\'t use an Oxford comma',
