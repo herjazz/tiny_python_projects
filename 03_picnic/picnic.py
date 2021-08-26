@@ -24,7 +24,11 @@ def get_args():
     parser.add_argument('-s',
                         '--sorted',
                         help='Sort the items',
-                        default=False,
+                        action='store_true')
+
+
+    parser.add_argument('--no_oxford',
+                        help='Don\'t use an Oxford comma',
                         action='store_true')
 
     return parser.parse_args()
@@ -47,7 +51,7 @@ def main():
         picnic_items = ' and '.join(items)
     else:
         items_except_last = ', '.join(items[:-1])
-        final_item = f", and {items[-1]}"
+        final_item = f" and {items[-1]}" if args.no_oxford else f", and {items[-1]}"
         picnic_items = items_except_last + final_item
     print(f"You are bringing {picnic_items}.")
 
