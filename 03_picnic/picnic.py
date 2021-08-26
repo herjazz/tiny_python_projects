@@ -36,13 +36,18 @@ def main():
 
     args = get_args()
     items = args.item
-    if len(items) == 1:
+    num_items = len(items)
+
+    if args.sorted:
+        items.sort()
+
+    if num_items == 1:
         picnic_items = items[0]
+    elif num_items == 2:
+        picnic_items = ' and '.join(items)
     else:
-        if args.sorted:
-            items.sort()
         items_except_last = ', '.join(items[:-1])
-        final_item = f" and {items[-1]}" if len(items) == 2 else f", and {items[-1]}"
+        final_item = f", and {items[-1]}"
         picnic_items = items_except_last + final_item
     print(f"You are bringing {picnic_items}.")
 
