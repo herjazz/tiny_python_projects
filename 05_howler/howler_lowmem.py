@@ -33,7 +33,7 @@ def get_args():
 
     if os.path.isfile(args.text):
         # QUERY: Don't we need to close this file?
-        args.text = open(args.text)
+        args.text = open(args.text, 'r', encoding='utf-8')
     else:
         # using io when unsure if arg is filename or string
         # (using \n to look like lines of output from a file
@@ -47,7 +47,8 @@ def main():
     """ Main prog """
 
     args = get_args()
-    out_fh = open(args.outfile, 'wt', encoding='utf-8') if args.outfile else sys.stdout
+    out_fh = open(args.outfile, 'wt',
+                  encoding='utf-8') if args.outfile else sys.stdout
     for line in args.text:
         out_fh.write(line.upper())
     out_fh.close()
