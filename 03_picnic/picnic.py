@@ -51,6 +51,7 @@ def main():
         picnic_items = items_except_last + final_item
     print(f"You are bringing {picnic_items}.")
 
+
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
