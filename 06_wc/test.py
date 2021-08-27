@@ -105,3 +105,79 @@ def test_stdin():
     rv, out = getstatusoutput(f'{prg} < {fox}')
     assert rv == 0
     assert out.rstrip() == '       1       9      45 <stdin>'
+
+
+# --------------------------------------------------
+def test_oneline_show_lines_only():
+    """Test on fox"""
+
+    rv, out = getstatusoutput(f'{prg} {fox} -l')
+    assert rv == 0
+    assert out.rstrip() == '       1 ../inputs/fox.txt'
+
+
+# --------------------------------------------------
+def test_oneline_show_words_only():
+    """Test on fox"""
+
+    rv, out = getstatusoutput(f'{prg} {fox} -w')
+    assert rv == 0
+    assert out.rstrip() == '       9 ../inputs/fox.txt'
+
+
+# --------------------------------------------------
+def test_oneline_show_bytes_only():
+    """Test on fox"""
+
+    rv, out = getstatusoutput(f'{prg} {fox} -c')
+    assert rv == 0
+    assert out.rstrip() == '      45 ../inputs/fox.txt'
+
+
+# --------------------------------------------------
+def test_oneline_show_lines_words():
+    """Test on fox"""
+
+    rv, out = getstatusoutput(f'{prg} {fox} -wl')
+    assert rv == 0
+    assert out.rstrip() == '       1       9 ../inputs/fox.txt'
+
+
+# --------------------------------------------------
+def test_oneline_show_lines_chars():
+    """Test on fox"""
+
+    rv, out = getstatusoutput(f'{prg} {fox} -lc')
+    assert rv == 0
+    assert out.rstrip() == '       1      45 ../inputs/fox.txt'
+
+
+# --------------------------------------------------
+def test_oneline_show_words_chars():
+    """Test on fox"""
+
+    rv, out = getstatusoutput(f'{prg} {fox} -wc')
+    assert rv == 0
+    assert out.rstrip() == '       9      45 ../inputs/fox.txt'
+
+
+# --------------------------------------------------
+def test_oneline_show_lines_words_chars():
+    """Test on fox"""
+
+    rv, out = getstatusoutput(f'{prg} {fox} -wlc')
+    assert rv == 0
+    assert out.rstrip() == '       1       9      45 ../inputs/fox.txt'
+
+
+# --------------------------------------------------
+def test_more_lines_chars_only():
+    """Test on more than one file"""
+
+    rv, out = getstatusoutput(f'{prg} {fox} {sonnet} -lc')
+    expected = ('       1      45 ../inputs/fox.txt\n'
+                '      17     661 ../inputs/sonnet-29.txt\n'
+                '      18     706 total')
+    assert rv == 0
+    assert out.rstrip() == expected
+
