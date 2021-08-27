@@ -6,8 +6,8 @@ Purpose: Make a python version of the command 'wc'
 """
 
 import argparse
-import io
-import os
+# import io
+# import os
 import sys
 
 
@@ -49,6 +49,7 @@ def main():
         total_words += num_words
         total_bytes += num_bytes
         print(f"{num_lines:8}{num_words:8}{num_bytes:8} {fh.name}")
+        fh.close()
 
     if len(args.file) > 1:
         print(f"{total_lines:8}{total_words:8}{total_bytes:8} total")
