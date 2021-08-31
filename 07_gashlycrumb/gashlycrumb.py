@@ -9,8 +9,8 @@ file.
 
 import argparse
 import os
-import sys
-import string
+# import sys
+# import string
 
 
 # --------------------------------------------------
@@ -53,11 +53,12 @@ def main():
         # sys.exit()
     else:
         # Make dict that alphabetizes a dict extracting line for each value
-        keys = string.ascii_lowercase
-        letter_dict = {k: v for k, v in zip(keys, text)}
+        # keys = string.ascii_lowercase
+        # letter_dict = {k: v for k, v in zip(keys, text)}
+        letter_dict = {line[0].upper(): line for line in text}
 
         for letter in letter_choices:
-            print(letter_dict.get(letter.lower(), f'I do not know "{letter}".'))
+            print(letter_dict.get(letter.upper(), f'I do not know "{letter}".'))
 
 
 # --------------------------------------------------
