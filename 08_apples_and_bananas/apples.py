@@ -28,7 +28,13 @@ def get_args():
                         choices=['a', 'e', 'i', 'o', 'u'],
                         default='a')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if os.path.isfile(args.text):
+        with open(args.text, 'rt', encoding='utf-8') as stream:
+            args.text = stream.read().rstrip()
+
+    return args
 
 
 # --------------------------------------------------
@@ -38,11 +44,6 @@ def main():
     args = get_args()
 
     vowels = 'AEIOUaeiou'
-
-    if os.path.isfile(args.text):
-        with open(args.text, 'rt', encoding='utf-8') as stream:
-            args.text = stream.read()
-
     changed_text = ''
 
     for letter in args.text:
