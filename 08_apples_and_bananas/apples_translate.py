@@ -25,10 +25,16 @@ def get_args():
                         help='The vowel to substitute',
                         metavar='vowel',
                         type=str,
-                        choices=['a', 'e', 'i', 'o', 'u'],
+                        choices=list('aeiou'),
                         default='a')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if os.path.isfile(args.text):
+        with open(args.text, 'rt', encoding='utf-8') as stream:
+            args.text = stream.read()
+
+    return args
 
 
 # --------------------------------------------------
@@ -37,24 +43,24 @@ def main():
 
     args = get_args()
 
-    vowel_trans_table = {'A': args.vowel.upper(),
-                         'E': args.vowel.upper(),
-                         'I': args.vowel.upper(),
-                         'O': args.vowel.upper(),
-                         'U': args.vowel.upper(),
-                         'a': args.vowel,
-                         'e': args.vowel,
-                         'i': args.vowel,
-                         'o': args.vowel,
-                         'u': args.vowel}
+    # vowel_trans_table = {'A': args.vowel.upper(),
+    #                      'E': args.vowel.upper(),
+    #                      'I': args.vowel.upper(),
+    #                      'O': args.vowel.upper(),
+    #                      'U': args.vowel.upper(),
+    #                      'a': args.vowel,
+    #                      'e': args.vowel,
+    #                      'i': args.vowel,
+    #                      'o': args.vowel,
+    #                      'u': args.vowel}
 
-    if os.path.isfile(args.text):
-        with open(args.text, 'rt', encoding='utf-8') as stream:
-            args.text = stream.read()
+    # One line version below (won't need maketrans call below)
+    trans = str.maketrans('aeiouAEIOU',
+                          args.vowel * 5 + args.vowel.upper() * 5)
 
-    changed_text = args.text.translate(str.maketrans(vowel_trans_table))
+    # changed_text = args.text.translate(str.maketrans(vowel_trans_table))
 
-    print(changed_text)
+    print(args.text.translate(trans))
 
 
 # --------------------------------------------------
