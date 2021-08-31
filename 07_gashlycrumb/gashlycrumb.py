@@ -47,7 +47,7 @@ def main():
     try:
         with open(args.file, 'r', encoding='utf-8') as src_file:
             text = src_file.readlines()
-            text = [line.rstrip() for line in text]
+            # text = [line.rstrip() for line in text]
     except FileNotFoundError:
         print("No file matches")
         # sys.exit()
@@ -55,7 +55,7 @@ def main():
         # Make dict that alphabetizes a dict extracting line for each value
         # keys = string.ascii_lowercase
         # letter_dict = {k: v for k, v in zip(keys, text)}
-        letter_dict = {line[0].upper(): line for line in text}
+        letter_dict = {line[0].upper(): line.rstrip() for line in text}
 
         for letter in letter_choices:
             print(letter_dict.get(letter.upper(), f'I do not know "{letter}".'))
