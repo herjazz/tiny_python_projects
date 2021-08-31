@@ -43,11 +43,17 @@ def main():
 
     args = get_args()
     vowel = args.vowel
-    text = map(
-        lambda c: vowel if c in 'aeiou' else vowel.upper()
-        if c in 'AEIOU' else c, args.text)
+    # text = map(
+    #     lambda c: vowel if c in 'aeiou' else vowel.upper()
+    #     if c in 'AEIOU' else c, args.text)
+    # print(''.join(text))
 
-    print(''.join(text))
+    # Alternatively can use with the new_char function
+    def new_char(c):
+        """ Returns character depending on conditions """
+        return vowel if c in 'aeiou' else vowel.upper() if c in 'AEIOU' else c
+
+    print(''.join(map(new_char, args.text)))
 
 
 # --------------------------------------------------
