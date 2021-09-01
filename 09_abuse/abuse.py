@@ -8,8 +8,7 @@ adjectives
 
 import argparse
 import random
-
-# import textwrap as tw
+import os
 
 
 # --------------------------------------------------
@@ -52,6 +51,16 @@ def get_args():
     return args
 
 
+def read_file(filename: str) -> str:
+    """ Read a file and return its contents in a list, raise FileNotFoundError
+    if there's an issue """
+    if os.path.isfile(filename):
+        with open(filename, 'rt', encoding='utf-8') as f:
+            return f.read().split()
+    else:
+        raise FileNotFoundError(f"{filename} does not exist.")
+
+
 # --------------------------------------------------
 def main():
     """ Main prog """
@@ -59,21 +68,12 @@ def main():
     args = get_args()
     random.seed(args.seed)
 
-    adjectives = """
-    bankrupt base caterwauling corrupt cullionly detestable dishonest false
-    filthsome filthy foolish foul gross heedless indistinguishable infected
-    insatiate irksome lascivious lecherous loathsome lubbery old peevish
-    rascaly rotten ruinous scurilous scurvy slanderous sodden-witted thin-faced
-    toad-spotted unmannered vile wall-eyed""".split()
+    adjectives = read_file('./adjectives.txt')
 
-    nouns = """
-    Judas Satan ape ass barbermonger beggar block boy braggart butt carbuncle
-    coward coxcomb cur dandy degenerate fiend fishmonger fool gull harpy jack
-    jolthead knave liar lunatic maw milksop minion ratcatcher recreant rogue
-    scold slave swine traitor varlet villain worm""".split()
+    nouns = read_file('./nouns.txt')
 
     for _ in range(args.number):
-        # Using random.sample (rather than random.choices) as the choices are unique
+        # Using random.sample as the choices are unique
         chosen_adjs = ', '.join(random.sample(adjectives, args.adjectives))
         print(f"You {chosen_adjs} {random.choice(nouns)}!")
 
