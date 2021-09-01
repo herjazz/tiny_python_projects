@@ -90,11 +90,10 @@ def test_01():
 def test_02():
     """test"""
 
-    out = getoutput(f'{prg} --seed 2')
+    out = getoutput(f'{prg} --seed 2 --number 2')
     expected = """
 You corrupt, detestable beggar!
 You peevish, foolish gull!
-You insatiate, heedless worm!
 """.strip()
     assert out.strip() == expected
 
