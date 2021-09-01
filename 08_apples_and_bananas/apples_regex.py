@@ -46,8 +46,9 @@ def main():
     text = args.text
     vowel = args.vowel
 
-    text = re.sub('[aeiou]', vowel, text)
-    text = re.sub('[AEIOU]', vowel.upper(), text)
+    # Added '+' to match one or more vowels and then collapse matches longer than one
+    text = re.sub('[aeiou]+', vowel, text)
+    text = re.sub('[AEIOU]+', vowel.upper(), text)
 
     print(text)
 
