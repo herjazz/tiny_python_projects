@@ -20,7 +20,7 @@ venv/
 # 07_gashlycrumb/gashlycrumb.py
 # 08_apples_and_bananas/apples.py
 # 09_abuse/abuse.py
-10_telephone/telephone.py
+# 10_telephone/telephone.py
 11_bottles_of_beer/bottles.py
 12_ransom/ransom.py
 13_twelve_days/twelve_days.py
