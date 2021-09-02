@@ -75,12 +75,21 @@ def main():
         else:
             new_text += char
 
-    # BOOK ANSWER
-    # does the process far quicker than my one (10 times!)
+    # # BOOK ANSWER
+    # # does the process far quicker than my one (10 times!)
     # new_text = text
     # for i in indexes:
+    #     # Remove char from alpha so it cannot be put back into new string
     #     new_char = random.choice(alpha.replace(new_text[i], ''))
     #     new_text = new_text[:i] + new_char + new_text[i + 1:]
+
+    # # BOOK ANSWER - LIST APPROACH
+    # 
+    # new_text = list(text)
+    # for i in indexes:
+    #     new_text = random.choice(alpha.replace(new_text[i], ''))
+    #
+    # new_text = ''.join(new_text)
 
     # Extra space before 2nd ':' to line up with first one.
     print(f'You said: "{text}"\nI heard : "{new_text}"')
