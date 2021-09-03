@@ -45,6 +45,11 @@ def get_args():
                         type=str,
                         default='')
 
+    parser.add_argument('-c',
+                        '--characters',
+                        help='Only use characters to replace',
+                        action='store_true')
+
     args = parser.parse_args()
 
     # Handle out of bounds error for mutations
@@ -68,8 +73,11 @@ def main():
     random.seed(args.seed)
     num_mutations = round(len(text) * args.mutations)
 
-    # Get all letters and punctuation for mutation
-    alpha = ''.join(sorted(string.ascii_letters + string.punctuation))
+    # Get all letters (and punctuation) for mutation
+    if args.characters:
+        alpha = string.ascii_letters
+    else:
+        alpha = ''.join(sorted(string.ascii_letters + string.punctuation))
 
     # Choose indices to change in text
     indexes = random.sample(range(len(text)), num_mutations)
