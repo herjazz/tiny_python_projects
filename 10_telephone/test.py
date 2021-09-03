@@ -117,7 +117,45 @@ def test_fox_file_s2_m6():
 
 
 # --------------------------------------------------
+def test_text_outfile():
+    """Test STDIN/outfile"""
+
+    out_file = random_string()
+    if os.path.isfile(out_file):
+        os.remove(out_file)
+
+    try:
+        rv, out = getstatusoutput(f'{prg} {out_flag()} {out_file} "foo bar baz"')
+        assert rv == 0
+        # assert out.strip() == ''
+        assert os.path.isfile(out_file)
+    finally:
+        if os.path.isfile(out_file):
+            os.remove(out_file)
+
+
+# --------------------------------------------------
+def test_for_char_flag():
+    """test"""
+
+    txt = open(now).read().rstrip()
+    rv, out = getstatusoutput(f'{prg} -s 2 -m .4 -c "{txt}"')
+    assert rv == 0
+    expected = """
+    Nob ic HheDriqe KorkallbgHojJmenxtS clleGtCutheuaidypyHthe laHty.
+    """.strip()
+    assert out.rstrip() == f'You said: "{txt}"\nI heard : "{expected}"'
+
+
+# --------------------------------------------------
 def random_string():
     """generate a random filename"""
 
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
+
+
+# --------------------------------------------------
+def out_flag():
+    """Either -o or --output"""
+
+    return '-o' if random.randint(0, 1) else '--output'
