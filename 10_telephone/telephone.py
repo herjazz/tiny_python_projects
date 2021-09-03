@@ -9,6 +9,7 @@ import argparse
 import os
 import random
 import string
+# import sys
 
 
 # --------------------------------------------------
@@ -36,6 +37,13 @@ def get_args():
                         metavar='mutations',
                         type=float,
                         default=0.1)
+
+    parser.add_argument('-o',
+                        '--output',
+                        help='Output filename',
+                        metavar='str',
+                        type=str,
+                        default='')
 
     args = parser.parse_args()
 
@@ -66,16 +74,16 @@ def main():
     # Choose indices to change in text
     indexes = random.sample(range(len(text)), num_mutations)
 
-    new_text = ''
-    # Below works, but has different results from book version - why?
-    for idx, char in enumerate(text):
-        if idx in indexes:
-            # Remove char from alpha so it cannot be put back into new string
-            new_text += random.choice(alpha.replace(char, ''))
-        else:
-            new_text += char
+    # new_text = ''
+    # # Below works, but has different results from book version - why?
+    # for idx, char in enumerate(text):
+    #     if idx in indexes:
+    #         # Remove char from alpha so it cannot be put back into new string
+    #         new_text += random.choice(alpha.replace(char, ''))
+    #     else:
+    #         new_text += char
 
-    # # BOOK ANSWER
+    # # # BOOK ANSWER
     # # does the process far quicker than my one (10 times!)
     # new_text = text
     # for i in indexes:
@@ -84,15 +92,21 @@ def main():
     #     new_text = new_text[:i] + new_char + new_text[i + 1:]
 
     # # BOOK ANSWER - LIST APPROACH
-    # 
-    # new_text = list(text)
-    # for i in indexes:
-    #     new_text = random.choice(alpha.replace(new_text[i], ''))
     #
-    # new_text = ''.join(new_text)
+    new_text = list(text)
+    for i in indexes:
+        new_text[i] = random.choice(alpha.replace(new_text[i], ''))
+
+    new_text = ''.join(new_text)
 
     # Extra space before 2nd ':' to line up with first one.
-    print(f'You said: "{text}"\nI heard : "{new_text}"')
+    message = f'You said: "{text}"\nI heard : "{new_text}"'
+
+    if args.output:
+        with open(args.output, 'wt', encoding='utf-8') as outfile:
+            outfile.write(message + '\n')
+    else:
+        print(message)
 
 
 # --------------------------------------------------
