@@ -46,7 +46,8 @@ def main():
 
     args = get_args()
 
-    verses = '\n\n'.join(map(verse, range(1, args.num + 1)))
+    # verses = '\n\n'.join(map(verse, range(1, args.num + 1)))
+    verses = '\n\n'.join([verse(n) for n in range(1, args.num + 1)])
 
     if args.output:
         with open(args.output, 'wt', encoding='utf-8') as outfile:
@@ -89,7 +90,7 @@ def verse(day: int) -> str:
     # lines.extend(reversed(gifts[:day]))
 
     # if day > 1:
-    # lines[-1] = 'And '+ lines[-1].lower()
+        # lines[-1] = 'And '+ lines[-1].lower()
 
     return '\n'.join(lines)
 
