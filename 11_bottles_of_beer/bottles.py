@@ -2,7 +2,7 @@
 """
 Author : wrjt <wrjt@localhost>
 Date   : 2021-09-03
-Purpose: To generate "bottle of beer" song dpeneding on the value of n
+Purpose: To generate "bottle of beer" song depending on the value of n
 (default: 10)
 """
 
@@ -68,8 +68,10 @@ def verse(bottle):
     next_bottle = 'No more bottles' if bottle == 1 else f'{bottle - 1} bottle' if bottle == 2 else f'{bottle - 1} bottles'
 
     return '\n'.join([
-        f'{current_bottle} of beer on the wall,', f'{current_bottle} of beer,',
-        'Take one down, pass it around,', f'{next_bottle} of beer on the wall!'
+        f'{current_bottle} of beer on the wall,',
+        f'{current_bottle} of beer,',
+        f'Take one down, pass it around,',
+        f'{next_bottle} of beer on the wall!'
     ])
 
 
@@ -83,6 +85,10 @@ def main():
     #     print(verse(i))
 
     print('\n\n'.join(map(verse, range(args.num, 0, -1))))
+
+    # # Alternative way 
+    # for n in range(args.num, 0, -1):
+    #     print(verse(n), end='\n' * (2 if n > 1 else 1))
 
 
 def test_verse():
