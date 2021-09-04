@@ -7,6 +7,7 @@ Purpose: Rock the Casbah
 """
 
 import argparse
+import os
 
 
 # --------------------------------------------------
@@ -37,6 +38,12 @@ def get_args():
     if args.num not in range(1, 13):
         parser.error(f'--num "{args.num}" must be between 1 and 12')
 
+    # Handle already existing file
+    if os.path.isfile(args.output):
+        parser.error(
+            f'--output "{args.output}" file already exists: please choose another name.'
+        )
+
     return args
 
 
@@ -59,24 +66,24 @@ def main():
 def verse(day: int) -> str:
     """ Return a verse of 12 Days of Xmas """
 
-    ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth',
-                'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth']
+    ordinals = [
+        'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh',
+        'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'
+    ]
 
-    gifts = ['A partridge in a pear tree.',
-             'Two turtle doves,',
-             'Three French hens,',
-             'Four calling birds,',
-             'Five gold rings,',
-             'Six geese a laying,',
-             'Seven swans a swimming,',
-             'Eight maids a milking,',
-             'Nine ladies dancing,',
-             'Ten lords a leaping,',
-             'Eleven pipers piping,',
-             'Twelve drummers drumming,']
+    gifts = [
+        'A partridge in a pear tree.', 'Two turtle doves,',
+        'Three French hens,', 'Four calling birds,', 'Five gold rings,',
+        'Six geese a laying,', 'Seven swans a swimming,',
+        'Eight maids a milking,', 'Nine ladies dancing,',
+        'Ten lords a leaping,', 'Eleven pipers piping,',
+        'Twelve drummers drumming,'
+    ]
 
-    lines = [f"On the {ordinals[day - 1]} day of Christmas,",
-             "My true love gave to me,"]
+    lines = [
+        f"On the {ordinals[day - 1]} day of Christmas,",
+        "My true love gave to me,"
+    ]
 
     for gift in reversed(gifts[1:day]):
         lines.append(gift)
@@ -90,7 +97,7 @@ def verse(day: int) -> str:
     # lines.extend(reversed(gifts[:day]))
 
     # if day > 1:
-        # lines[-1] = 'And '+ lines[-1].lower()
+    # lines[-1] = 'And '+ lines[-1].lower()
 
     return '\n'.join(lines)
 

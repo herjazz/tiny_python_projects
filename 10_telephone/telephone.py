@@ -61,6 +61,12 @@ def get_args():
         with open(args.text, "rt", encoding="utf-8") as f:
             args.text = f.read().rstrip()
 
+    # Handle already existing file
+    if os.path.isfile(args.output):
+        parser.error(
+            f'--output "{args.output}" file already exists: please choose another name.'
+        )
+
     return args
 
 

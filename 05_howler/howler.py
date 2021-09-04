@@ -27,7 +27,15 @@ def get_args():
                         type=str,
                         default='')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    # Handle already existing file
+    if os.path.isfile(args.outfile):
+        parser.error(
+            f'--outfile "{args.outfile}" file already exists: please choose another name.'
+        )
+
+    return args
 
 
 # --------------------------------------------------
