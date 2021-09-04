@@ -44,13 +44,7 @@ def main():
     remove_me, stem = stemmer(args.word)
 
     if stem:
-        output = []
-        for p in prefixes:
-            if p == remove_me:
-                continue
-            else:
-                output.append(p + stem)
-        output = '\n'.join(output)
+        output = '\n'.join([p + stem for p in prefixes if p != remove_me])
     else:
         output = f'Cannot rhyme "{args.word}"'
 
