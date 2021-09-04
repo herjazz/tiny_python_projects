@@ -34,7 +34,7 @@ def get_args():
     args = parser.parse_args()
 
     # Handle out of bounds error for number of days
-    if not 1 <= args.num <= 12:
+    if args.num not in range(1, 13):
         parser.error(f'--num "{args.num}" must be between 1 and 12')
 
     return args
@@ -84,6 +84,12 @@ def verse(day: int) -> str:
         lines.append("And " + gifts[0].lower())
     else:
         lines.append(gifts[0])
+
+    # # Book version
+    # lines.extend(reversed(gifts[:day]))
+
+    # if day > 1:
+    # lines[-1] = 'And '+ lines[-1].lower()
 
     return '\n'.join(lines)
 
