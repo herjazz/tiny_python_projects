@@ -22,7 +22,7 @@ venv/
 # 09_abuse/abuse.py
 # 10_telephone/telephone.py
 # 11_bottles_of_beer/bottles.py
-12_ransom/ransom.py
+# 12_ransom/ransom.py
 13_twelve_days/twelve_days.py
 14_rhymer/rhymer.py
 15_kentucky_friar/friar.py
