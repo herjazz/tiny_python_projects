@@ -56,6 +56,7 @@ def stemmer(word: str) -> tuple:
 
     letters, vowels = string.ascii_lowercase, 'aeiou'
     consonants = ''.join([c for c in letters if c not in vowels])
+    # consonants = ''.join(filter(lambda c: c not in vowels, letters))
     word = word.lower()
 
     # Alternative using re.compile and findall (which returns a list)
