@@ -59,34 +59,38 @@ def stemmer(word: str) -> tuple:
     # consonants = ''.join(filter(lambda c: c not in vowels, letters))
     word = word.lower()
 
-    # Alternative using re.compile and findall (which returns a list)
-    pattern_regex = re.compile(
-        rf'''(
-            ([{consonants}]+)?          # Capture one or more (optional)
-            ([{vowels}]+)               # Capture at least one vowel
-            (.*)                        # Capture zero or more of anything else
-            )''', re.VERBOSE)
+    # # Alternative using re.compile and findall (which returns a list)
+    # pattern_regex = re.compile(
+    #     rf'''(
+    #         ([{consonants}]+)?          # Capture one or more (optional)
+    #         ([{vowels}]+)               # Capture at least one vowel
+    #         (.*)                        # Capture zero or more of anything else
+    #         )''', re.VERBOSE)
 
-    match = pattern_regex.findall(word)
-
-    if match:
-        p1 = match[0][1] or ''
-        p2 = match[0][2] or ''
-        p3 = match[0][3] or ''
-        return (p1, p2 + p3)
-    else:
-        return (word, '')
-
-    # pattern = f'([{consonants}]+)?([{vowels}])(.*)'
-    # match = re.match(pattern, word)
+    # match = pattern_regex.findall(word)
 
     # if match:
-    #     p1 = match.group(1) or ''
-    #     p2 = match.group(2) or ''
-    #     p3 = match.group(3) or ''
+    #     p1 = match[0][1] or ''
+    #     p2 = match[0][2] or ''
+    #     p3 = match[0][3] or ''
     #     return (p1, p2 + p3)
     # else:
     #     return (word, '')
+
+    pattern = (
+        f'([{consonants}]+)?'           # Capture one or more (optional)
+        f'([{vowels}])'                 # Capture at least one vowel
+        '(.*)'                          # Capture zero of more of anything else
+    )
+    match = re.match(pattern, word)
+
+    if match:
+        p1 = match.group(1) or ''
+        p2 = match.group(2) or ''
+        p3 = match.group(3) or ''
+        return (p1, p2 + p3)
+    else:
+        return (word, '')
 
 
 def test_stemmer():
