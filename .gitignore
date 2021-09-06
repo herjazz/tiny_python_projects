@@ -25,7 +25,7 @@ venv/
 # 12_ransom/ransom.py
 # 13_twelve_days/twelve_days.py
 # 14_rhymer/rhymer.py
-15_kentucky_friar/friar.py
+# 15_kentucky_friar/friar.py
 16_scrambler/scrambler.py
 17_mad_libs/mad.py
 18_gematria/gematria.py
