@@ -37,14 +37,19 @@ def main():
 
     args = get_args()
 
+    # Saves a compile every loop and is more readable
+    splitter = re.compile(r'(\W+)')
     for line in args.text.splitlines():
-        words = [fry(word) for word in re.split(r'(\W+)', line.rstrip())]
+        words = [fry(word) for word in re.split(splitter, line.rstrip())]
         print(''.join(words))
 
 
 def fry(word: str) -> str:
     """ 'Fry' a word """
+
+    # re.match starts at the beginning of supplied string
     you_match = re.match(r'([yY])ou$', word)
+    # re.search looks anywhere in the supplied string
     ing_match = re.search(r'(.+)ing$', word)
     if you_match:
         return you_match.group(1) + "'all"
@@ -58,6 +63,9 @@ def fry(word: str) -> str:
     # if word.lower() == "you":
     #     return word[0] + "'all"
     # elif word.lower().endswith('ing'):
+    # # Can replace for loop with:
+    # # if any(map(lambda c: c.lower() in 'aeiouy', word[:-3])):
+    # #        return word[:-1] + "'"
     #     for c in word[:-3]:
     #         if c.lower() in 'aeiouy':
     #             return word[:-1] + "'"
@@ -71,7 +79,6 @@ def test_fry():
     assert fry('you') == "y'all"
     assert fry('You') == "Y'all"
     assert fry('your') == "your"
-    assert fry('Bayou') == "Bayou"
     assert fry('fishing') == "fishin'"
     assert fry('Aching') == "Achin'"
     assert fry('swing') == "swing"
