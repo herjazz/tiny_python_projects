@@ -44,14 +44,15 @@ def main():
 
 def fry(word: str) -> str:
     """ 'Fry' a word """
-    you_match = re.match(r'^([yY])ou$', word)
+    you_match = re.match(r'([yY])ou$', word)
     ing_match = re.search(r'(.+)ing$', word)
     if you_match:
         return you_match.group(1) + "'all"
     elif ing_match:
         # Check for vowels before 'ing', if present 'fry' it
-        if re.search(r'[aeoiuy]', ing_match.group(1), re.IGNORECASE):
-            return ing_match.group(1) + "in'"
+        prefix = ing_match.group(1)
+        if re.search(r'[aeoiuy]', prefix, re.IGNORECASE):
+            return prefix + "in'"
 
     # # Non-regex version (passes all unit tests)
     # if word.lower() == "you":
@@ -70,6 +71,7 @@ def test_fry():
     assert fry('you') == "y'all"
     assert fry('You') == "Y'all"
     assert fry('your') == "your"
+    assert fry('Bayou') == "Bayou"
     assert fry('fishing') == "fishin'"
     assert fry('Aching') == "Achin'"
     assert fry('swing') == "swing"
