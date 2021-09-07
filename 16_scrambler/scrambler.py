@@ -59,18 +59,14 @@ def main():
 
 
 def scramble(word: str) -> str:
-    """ Scramble a word """
+    """ For words longer than 3 chars, scramble middle letters """
 
-    if len(word) <= 3:
-        return word
+    if len(word) > 3 and re.match(r'\w+', word):
+        middle = list(word[1:-1])
+        random.shuffle(middle)
+        word = word[0] + ''.join(middle) + word[-1]
 
-    first = word[0]
-    last = word[-1]
-    middle = list(word[1:-1])
-
-    random.shuffle(middle)
-
-    return first + ''.join(middle) + last
+    return word
 
 
 def test_scramble():
