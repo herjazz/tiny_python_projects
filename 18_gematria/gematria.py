@@ -41,18 +41,18 @@ def main():
     args = get_args()
 
     # Book version
+    # for line in args.text.splitlines():
+    #     print(' '.join(map(word2num, line.split())))
+
     for line in args.text.splitlines():
-        print(' '.join(map(word2num, line.split())))
-
-    # text = args.text.splitlines()
-
-    # changed_text = [' '.join([word2num(word) for word in line.split()]) for line in text]
-
-    # print('\n'.join(changed_text))
+        print(' '.join([word2num(word) for word in line.split()]))
 
 
 def word2num(word: str) -> str:
     """ Convert a word to the sum of its ascii values """
+
+    # # Book version:
+    # return str(sum(map(ord, re.sub(r'[^A-Za-z0-9]', '', word))))
 
     # Remove non-letters and numbers
     word = re.sub(re.compile(r'[^A-Za-z0-9]'), '', word)
