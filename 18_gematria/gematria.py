@@ -39,11 +39,16 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    text = args.text.splitlines()
 
-    changed_text = [' '.join([word2num(word) for word in line.split()]) for line in text]
+    # Book version
+    for line in args.text.splitlines():
+        print(' '.join(map(word2num, line.split())))
 
-    print('\n'.join(changed_text))
+    # text = args.text.splitlines()
+
+    # changed_text = [' '.join([word2num(word) for word in line.split()]) for line in text]
+
+    # print('\n'.join(changed_text))
 
 
 def word2num(word: str) -> str:
