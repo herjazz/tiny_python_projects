@@ -28,7 +28,7 @@ venv/
 # 15_kentucky_friar/friar.py
 # 16_scrambler/scrambler.py
 # 17_mad_libs/mad.py
-18_gematria/gematria.py
+# 18_gematria/gematria.py
 19_wod/wod.py
 20_password/password.py
 21_tictactoe/tictactoe.py
