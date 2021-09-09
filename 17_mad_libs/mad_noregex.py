@@ -47,14 +47,10 @@ def main():
     with open(args.file, 'rt', encoding='utf-8') as f:
         text = f.read().rstrip()
 
-    if find_brackets(text) is None:
-        # Spit out an error and exit if no placeholders found in text
-        sys.exit(f'"{args.file}" has no placeholders.')
+    tmpl = 'Give me {} {}: '
+    placeholders = False
 
     # Get user inputs
-    nu_text = ''
-    tmpl = 'Give me {} {}: '
-
     while find_brackets(text) is not None:
         left, right = find_brackets(text)
         article = 'an' if text[left + 1].lower() in 'aeiou' else 'a'
@@ -62,11 +58,14 @@ def main():
             word = inputs.pop(0)
         else:
             word = input(tmpl.format(article, text[left + 1:right]))
-        nu_text += text[:left] + word
-        text = text[right + 1:]
+        text = text[:left] + word + text[right + 1:]
+        placeholders = True
 
-    text = nu_text + text
-    print(text)
+    if placeholders:
+        print(text)
+    else:
+        # Spit out an error and exit if no placeholders found in text
+        sys.exit(f'"{args.file}" has no placeholders.')
 
 
 def find_brackets(text: str) -> tuple:
