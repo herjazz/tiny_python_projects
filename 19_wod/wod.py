@@ -68,17 +68,17 @@ def main():
 
     args = get_args()
     random.seed(args.seed)
+    wod = []
     with open(args.file, 'rt', encoding='utf-8') as f:
         exercises = read_csv(f)
 
-    output = []
-    for ex in random.sample(exercises, k=args.num):
-        suggested_reps = random.randint(ex[1], ex[2])
+    for name, low, high in random.sample(exercises, k=args.num):
+        suggested_reps = random.randint(low, high)
         if args.easy:
             suggested_reps = suggested_reps // 2
-        output.append((ex[0], suggested_reps))
+        wod.append((name, suggested_reps))
 
-    print(tabulate(output, headers=('Exercise', 'Reps')))
+    print(tabulate(wod, headers=('Exercise', 'Reps')))
 
 
 def read_csv(fh) -> list:
