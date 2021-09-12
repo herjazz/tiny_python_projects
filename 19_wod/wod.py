@@ -11,6 +11,8 @@ import csv
 import io
 import os
 import random
+import re
+import sys
 
 from tabulate import tabulate
 
@@ -55,6 +57,10 @@ def get_args():
     if args.num < 1:
         parser.error(f'--num "{args.num}" must be greater than 0')
 
+    # Handle empty file
+    if os.path.getsize(args.file) == 0:
+        parser.error(f"File: '{args.file}' appears to be empty")
+
     # Handle file not present
     if not os.path.isfile(args.file):
         parser.error(f"No such file or directory: '{args.file}'")
@@ -68,13 +74,23 @@ def main():
 
     args = get_args()
     random.seed(args.seed)
-    wod = []
     with open(args.file, 'rt', encoding='utf-8') as f:
         exercises = read_csv(f)
 
+    # Deal with any badly formed data (read_csv returns None)
+    if not exercises:
+        sys.exit(f'No usable data in --file "{args.file}"')
+
+    # Check if trying to sample more exercises than are actually in the file
+    num_exercises = len(exercises)
+    if args.num > num_exercises:
+        sys.exit(f'--num "{args.num}" > exercises "{num_exercises}"')
+
+    wod = []
     for name, low, high in random.sample(exercises, k=args.num):
         suggested_reps = random.randint(low, high)
         if args.easy:
+            # Round down any fractional results
             suggested_reps = suggested_reps // 2
         wod.append((name, suggested_reps))
 
@@ -89,17 +105,16 @@ def read_csv(fh) -> list:
     exercises = []
     for row in reader:
         name, reps = row
-        low, high = [int(value) for value in reps.split('-')]
-        exercises.append((name, low, high))
+        # Check each record has both items
+        if name and reps:
+            # Check data is as expected for reps (eg. number-number)
+            match = re.match(r'(\d+)-(\d+)', reps)
+            if match:
+                low, high = [int(value) for value in reps.split('-')]
+                exercises.append((name, low, high))
     return exercises
 
-
-def test_read_csv():
-    """ Test read_csv functions """
-    # Make a fake file handle using io module
-    text = io.StringIO('exercise,reps\nBurpees,20-50\nSitups,40-100')
-    assert read_csv(text) == [('Burpees', 20, 50), ('Situps', 40, 100)]
-
+# Removed unit test to separate file.
 
 # --------------------------------------------------
 if __name__ == '__main__':
