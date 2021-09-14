@@ -45,6 +45,14 @@ def get_args():
                         type=int,
                         default=4)
 
+    parser.add_argument('-d',
+                        '--display',
+                        help='Choose format of how to display output',
+                        metavar='display',
+                        choices=['plain', 'simple', 'grid', 'pipe', 'orgtbl', 'rst',
+                                 'mediawiki', 'latex', 'latex_raw', 'latex_booktabs'],
+                        default='plain')
+
     parser.add_argument('-t',
                         '--tab',
                         help='Specify tab delimited file',
@@ -98,7 +106,7 @@ def main():
             suggested_reps = suggested_reps // 2
         wod.append((name, suggested_reps))
 
-    print(tabulate(wod, headers=('Exercise', 'Reps')))
+    print(tabulate(wod, headers=('Exercise', 'Reps'), tablefmt=args.display))
 
 
 def read_csv(fh, tab=False) -> list:
