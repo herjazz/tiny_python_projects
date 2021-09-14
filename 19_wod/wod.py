@@ -79,7 +79,7 @@ def main():
     args = get_args()
     random.seed(args.seed)
     with open(args.file, 'rt', encoding='utf-8') as f:
-        exercises = read_csv(f)
+        exercises = read_csv(f, tab=True) if args.tab else read_csv(f)
 
     # Deal with any badly formed data (read_csv returns None)
     if not exercises:
@@ -101,14 +101,14 @@ def main():
     print(tabulate(wod, headers=('Exercise', 'Reps')))
 
 
-def read_csv(fh) -> list:
+def read_csv(fh, tab=False) -> list:
     """ Read CSV formatted input, returns a list of tuples """
     exercises = []
     if fh.seek(0, os.SEEK_END) == 0:
         return exercises
     fh.seek(0)
-    # delimit = '\t' if args.tab else ','
-    reader = csv.reader(fh)
+    delimit = '\t' if tab else ','
+    reader = csv.reader(fh, delimiter=delimit)
     # Skip past headers
     _ = next(reader)
     for row in reader:
