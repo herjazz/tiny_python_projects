@@ -8,7 +8,6 @@ Purpose: Create a random daily workout from choices in a csv file
 
 import argparse
 import csv
-import io
 import os
 import random
 import re
@@ -45,6 +44,11 @@ def get_args():
                         metavar='exercises',
                         type=int,
                         default=4)
+
+    parser.add_argument('-t',
+                        '--tab',
+                        help='Specify tab delimited file',
+                        action='store_true')
 
     parser.add_argument('-e',
                         '--easy',
@@ -99,10 +103,14 @@ def main():
 
 def read_csv(fh) -> list:
     """ Read CSV formatted input, returns a list of tuples """
+    exercises = []
+    if fh.seek(0, os.SEEK_END) == 0:
+        return exercises
+    fh.seek(0)
+    # delimit = '\t' if args.tab else ','
     reader = csv.reader(fh)
     # Skip past headers
     _ = next(reader)
-    exercises = []
     for row in reader:
         name, reps = row
         # Check each record has both items
@@ -115,6 +123,7 @@ def read_csv(fh) -> list:
     return exercises
 
 # Removed unit test to separate file.
+
 
 # --------------------------------------------------
 if __name__ == '__main__':
