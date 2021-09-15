@@ -30,5 +30,6 @@ venv/
 # 17_mad_libs/mad.py
 # 18_gematria/gematria.py
 # 19_wod/wod.py
-20_password/password.py
+# 20_password/password.py
 21_tictactoe/tictactoe.py
+inputs/word*
