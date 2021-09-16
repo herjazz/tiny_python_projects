@@ -7,6 +7,7 @@ Purpose: Emulate a game of tictactoe
 """
 
 import argparse
+import re
 
 
 # --------------------------------------------------
@@ -22,37 +23,33 @@ def get_args():
                         help='Current state of the board',
                         metavar='board',
                         type=str,
-                        default='.........')
+                        default='.' * 9)
 
     parser.add_argument('-p',
                         '--player',
                         help='Player to move',
                         metavar='player',
                         type=str,
-                        choices=["X", "O"])
+                        choices="XO",
+                        default=None)
 
     parser.add_argument('-c',
                         '--cell',
                         help='Number of the cell to be taken',
                         metavar='cell',
                         type=int,
-                        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9])
+                        choices=range(1, 10),
+                        default=None)
 
     args = parser.parse_args()
 
-    if len(args.board) != 9:
+    if not re.search(r'^[.XO]{9}$', args.board):
         parser.error(f'--board "{args.board}" must be 9 characters of ., X, O')
-
-    for char in args.board:
-        if char not in ".XO":
-            parser.error(
-                f'--board "{args.board}" must be 9 characters of ., X, O')
 
     if (args.player and not args.cell) or (args.cell and not args.player):
         parser.error("Must provide both --player and --cell")
 
-    if args.cell:
-        if args.board[args.cell - 1] in "XO":
+    if args.cell and args.player and args.board[args.cell - 1] in "XO":
             parser.error(f'--cell "{args.cell}" already taken')
 
     return args
