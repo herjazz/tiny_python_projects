@@ -31,5 +31,5 @@ venv/
 # 18_gematria/gematria.py
 # 19_wod/wod.py
 # 20_password/password.py
-21_tictactoe/tictactoe.py
+# 21_tictactoe/tictactoe.py
 inputs/word*
