@@ -50,7 +50,7 @@ def get_args():
         parser.error("Must provide both --player and --cell")
 
     if args.cell and args.player and args.board[args.cell - 1] in "XO":
-            parser.error(f'--cell "{args.cell}" already taken')
+        parser.error(f'--cell "{args.cell}" already taken')
 
     return args
 
@@ -73,7 +73,7 @@ def main():
 
 def format_board(board: str) -> str:
     """ Print out current state of board """
-    cells = [str(i + 1) if c == '.' else c for i, c in enumerate(board)]
+    cells = [str(i) if c == '.' else c for i, c in enumerate(board, start=1)]
     divider = "-------------"
     cells_tmpl = "| {} | {} | {} |"
     return '\n'.join([
@@ -85,7 +85,7 @@ def format_board(board: str) -> str:
 
 
 def find_winner(board: str, player: str) -> str:
-    """ Return True if winning combination """
+    """ Return the winner """
     wins = [('PPP......'), ('...PPP...'), ('......PPP'), ('P..P..P..'),
             ('.P..P..P.'), ('..P..P..P'), ('P...P...P'), ('..P.P.P..')]
     board = ''.join([c.replace(c, '.') if c != player else c for c in board])
